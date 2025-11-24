@@ -1,4 +1,4 @@
-# ABAP -- Relatório de Usuários SAP com Destaque Visual e Link para SU01D
+# ABAP – Relatório de Usuários SAP com Destaque Visual e Link para SU01D
 
 Este projeto apresenta um relatório ABAP que permite consultar usuários
 SAP, exibir informações completas em ALV, destacar visualmente contas
