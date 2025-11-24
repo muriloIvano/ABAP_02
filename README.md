@@ -38,4 +38,4 @@ Oferecer uma visão rápida da situação dos usuários SAP, destacando inconsis
 
 ## Autor
 
-Murilo Valentim
+**Murilo Valentim**
