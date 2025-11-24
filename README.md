@@ -25,17 +25,13 @@ O relatório realiza leitura integrada das seguintes tabelas:
 
 ## Processamento de Dados
 
--   Mescla dos dados de USR02, USR21 e ADRP em uma única estrutura\
--   Inclusão do nome completo do usuário\
+-   Mescla dos dados de USR02, USR21 e ADRP em uma única estrutura
+-   Inclusão do nome completo do usuário
 -   Destaca automaticamente:
-    -   **Usuários bloqueados** (campo UFLAG)\
+    -   **Usuários bloqueados** (campo UFLAG)
     -   **Contas expiradas**, avaliando GLTGV (válido desde) e GLTGB
-        (válido até)\
--   Geração dinâmica de cores por meio de `LVC_T_SCOL`\
--   Organização do código em FORM routines:
-    -   `QUERY`
-    -   `BEFORE_OUTPUT`
-    -   `OUTPUT`
+        (válido até)
+-   Organização do código em FORM routines
 
 ------------------------------------------------------------------------
 
@@ -43,10 +39,10 @@ O relatório realiza leitura integrada das seguintes tabelas:
 
 Usando a classe `CL_SALV_TABLE`:
 
--   Ajuste automático de colunas\
--   Funções padrão habilitadas\
--   Linhas listradas (striped pattern)\
--   Coloração por coluna configurada via campo **COLOR**\
+-   Ajuste automático de colunas
+-   Funções padrão habilitadas
+-   Linhas listradas (striped pattern)
+-   Coloração por coluna configurada via campo **COLOR**
 -   Coluna **BNAME** configurada como **hotspot**
 
 ### Hotspot (Clique no usuário)
@@ -60,11 +56,11 @@ Usando a classe `CL_SALV_TABLE`:
 
 ## Conceitos ABAP Utilizados
 
--   JOIN entre USR02, USR21 e ADRP\
--   Estruturas internas com campos de cor (`LVC_T_SCOL`)\
--   Manipulação de ALV com eventos (`CL_SALV_EVENTS_TABLE`)\
--   Uso de hotspot em célula (`IF_SALV_C_CELL_TYPE=>HOTSPOT`)\
--   Organização modular do código com *FORM routines*\
+-   JOIN entre USR02, USR21 e ADRP
+-   Estruturas internas com campos de cor (`LVC_T_SCOL`)
+-   Manipulação de ALV com eventos (`CL_SALV_EVENTS_TABLE`)
+-   Uso de hotspot em célula (`IF_SALV_C_CELL_TYPE=>HOTSPOT`)
+-   Organização modular do código com *FORM routines*
 -   Técnicas de realce condicional (conditional formatting)
 
 ------------------------------------------------------------------------
@@ -73,11 +69,11 @@ Usando a classe `CL_SALV_TABLE`:
 
 Este projeto tem como objetivo demonstrar:
 
--   Consulta consolidada de dados de usuários SAP\
--   Avaliação automática de bloqueio e validade\
--   Realce visual de situações críticas\
--   Interatividade por meio de hotspot no ALV\
--   Navegação direta para a SU01D\
+-   Consulta consolidada de dados de usuários SAP
+-   Avaliação automática de bloqueio e validade
+-   Realce visual de situações críticas
+-   Interatividade por meio de hotspot no ALV
+-   Navegação direta para a SU01D
 -   Boas práticas de estruturação de relatórios ABAP
 
 ------------------------------------------------------------------------
