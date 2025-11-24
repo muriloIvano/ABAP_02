@@ -9,12 +9,12 @@ meio de hotspot.
 
 ## Funcionalidades
 
-### Consultas Disponíveis
+### Select dos dados
 
 O relatório realiza leitura integrada das seguintes tabelas:
 
--   **USR02** -- Dados gerais do usuário\
--   **USR21** -- Associação usuário ↔ número de pessoa\
+-   **USR02** -- Dados gerais do usuário
+-   **USR21** -- Associação usuário ↔ número de pessoa
 -   **ADRP** -- Nome completo do usuário
 
 ### Filtros Disponíveis
