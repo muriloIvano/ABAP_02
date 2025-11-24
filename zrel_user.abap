@@ -47,13 +47,13 @@ SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME.
 SELECTION-SCREEN END OF BLOCK b1.
 
 START-OF-SELECTION.
-  PERFORM: query.
+  PERFORM: select_data.
   PERFORM: before_output.
   PERFORM: output.
 *&---------------------------------------------------------------------*
-*& Form query
+*& Form select_data
 *&---------------------------------------------------------------------*
-FORM query .
+FORM select_data .
 
   SELECT a~bname c~name_text a~gltgv a~gltgb a~uflag a~aname a~erdat a~trdat
     FROM usr02 AS a
@@ -74,24 +74,26 @@ FORM before_output .
   DATA ls_cont TYPE sy-tabix.
 
   LOOP AT it_users INTO wa_users.
-    IF wa_users-uflag IS NOT INITIAL.
-      ls_color-color-col = 6.
-      ls_color-fname = 'UFLAG'.
-      ls_cont = sy-tabix.
-      APPEND ls_color TO wa_users-color.
-      MODIFY it_users FROM wa_users INDEX ls_cont.
-    ENDIF.
-
-    IF sy-datum => wa_users-gltgv AND wa_users-gltgb <= sy-datum.
+    ls_cont = sy-tabix.
+    IF ( wa_users-gltgb = '00000000' ) OR ( sy-datum => wa_users-gltgv AND wa_users-gltgb <= sy-datum ).
       ls_color-color-col = 6.
       ls_color-fname = 'GLTGB'.
-      ls_cont = sy-tabix.
       APPEND ls_color TO wa_users-color.
 
       ls_color-fname = 'GLTGV'.
       APPEND ls_color TO wa_users-color.
       MODIFY it_users FROM wa_users INDEX ls_cont.
+    ENDIF.
 
+    IF wa_users-uflag IS NOT INITIAL.
+      ls_color-color-col = 6.
+      ls_color-fname = 'UFLAG'.
+
+      APPEND ls_color TO wa_users-color.
+      MODIFY it_users FROM wa_users INDEX ls_cont.
+      ELSE.
+        CLEAR wa_users-color.
+        MODIFY it_users FROM wa_users INDEX ls_cont.
     ENDIF.
   ENDLOOP.
 ENDFORM.
