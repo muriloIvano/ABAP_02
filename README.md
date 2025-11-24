@@ -1,81 +1,87 @@
-# Resumo do Programa ABAP – Z02EST_REL_USER
+# ABAP -- Relatório de Usuários SAP com Destaque Visual e Link para SU01D
 
-Este relatório apresenta uma lista de usuários SAP com informações detalhadas, incluindo bloqueio, validade, data de criação e último logon.  
-Também permite abrir diretamente a transação **SU01D** ao clicar no nome do usuário (hotspot).
+Este projeto apresenta um relatório ABAP que permite consultar usuários
+SAP, exibir informações completas em ALV, destacar visualmente contas
+bloqueadas ou expiradas e acessar diretamente a transação **SU01D** por
+meio de hotspot.
 
----
+------------------------------------------------------------------------
 
-## 🧩 Funcionalidades Principais
+## Funcionalidades
 
-### 1. Seleção de Usuários
-O programa permite filtrar usuários através do campo **BNAME** usando `SELECT-OPTIONS`.
+### Consultas Disponíveis
 
----
+O relatório realiza leitura integrada das seguintes tabelas:
 
-### 2. Consulta de Dados
-O relatório busca informações das seguintes tabelas:
+-   **USR02** -- Dados gerais do usuário\
+-   **USR21** -- Associação usuário ↔ número de pessoa\
+-   **ADRP** -- Nome completo do usuário
 
-- **USR02** – Dados gerais do usuário  
-- **USR21** – Associação do usuário com número de pessoa  
-- **ADRP** – Nome completo do usuário
+### Filtros Disponíveis
 
-Campos retornados no ALV:
+-   Código do usuário (**BNAME**) via `SELECT-OPTIONS`
 
-- Código do usuário (BNAME)  
-- Nome completo  
-- Validade inicial/final (GLTGV / GLTGB)  
-- Indicador de bloqueio (UFLAG)  
-- Criado por  
-- Data de criação  
-- Último logon  
+------------------------------------------------------------------------
 
----
+## Processamento de Dados
 
-## 🎨 Regras de Destaque (Coloração)
+-   Mescla dos dados de USR02, USR21 e ADRP em uma única estrutura\
+-   Inclusão do nome completo do usuário\
+-   Destaca automaticamente:
+    -   **Usuários bloqueados** (campo UFLAG)\
+    -   **Contas expiradas**, avaliando GLTGV (válido desde) e GLTGB
+        (válido até)\
+-   Geração dinâmica de cores por meio de `LVC_T_SCOL`\
+-   Organização do código em FORM routines:
+    -   `QUERY`
+    -   `BEFORE_OUTPUT`
+    -   `OUTPUT`
 
-O relatório aplica cores automaticamente conforme duas regras:
+------------------------------------------------------------------------
 
-### 🔴 Usuário bloqueado  
-A coluna **UFLAG** é destacada.
+## Exibição ALV
 
-### 🔴 Validade expirada  
-As colunas **GLTGV** e **GLTGB** são destacadas quando o usuário está fora do período válido.
+Usando a classe `CL_SALV_TABLE`:
 
----
+-   Ajuste automático de colunas\
+-   Funções padrão habilitadas\
+-   Linhas listradas (striped pattern)\
+-   Coloração por coluna configurada via campo **COLOR**\
+-   Coluna **BNAME** configurada como **hotspot**
 
-## 📊 ALV Interativo (CL_SALV_TABLE)
+### Hotspot (Clique no usuário)
 
-O ALV possui:
+-   Ao clicar no código do usuário, o relatório:
+    -   Define o parâmetro `XUS`
+    -   Abre automaticamente a transação **SU01D**
+    -   Implementado via classe de eventos e método `link_click`
 
-- Ajuste automático de colunas  
-- Funções padrões habilitadas  
-- Linhas com padrão listrado  
-- Coloração via campo **COLOR**  
-- Coluna **BNAME** configurada como **hotspot**
+------------------------------------------------------------------------
 
-### 🔗 Ação de clique (Hotspot)
-Ao clicar sobre o usuário:
+## Conceitos ABAP Utilizados
 
-- O sistema define o parâmetro `XUS`  
-- Abre automaticamente a transação **SU01D**
+-   JOIN entre USR02, USR21 e ADRP\
+-   Estruturas internas com campos de cor (`LVC_T_SCOL`)\
+-   Manipulação de ALV com eventos (`CL_SALV_EVENTS_TABLE`)\
+-   Uso de hotspot em célula (`IF_SALV_C_CELL_TYPE=>HOTSPOT`)\
+-   Organização modular do código com *FORM routines*\
+-   Técnicas de realce condicional (conditional formatting)
 
----
+------------------------------------------------------------------------
 
-## 🧱 Fluxo do Programa
+## Objetivo
 
-1. **QUERY**  
-   Realiza o SELECT com JOINs nas tabelas USR02, USR21 e ADRP.
+Este projeto tem como objetivo demonstrar:
 
-2. **BEFORE_OUTPUT**  
-   Avalia bloqueio e validade, aplicando cores a cada linha.
+-   Consulta consolidada de dados de usuários SAP\
+-   Avaliação automática de bloqueio e validade\
+-   Realce visual de situações críticas\
+-   Interatividade por meio de hotspot no ALV\
+-   Navegação direta para a SU01D\
+-   Boas práticas de estruturação de relatórios ABAP
 
-3. **OUTPUT**  
-   Constrói o ALV, ativa eventos e exibe o relatório.
+------------------------------------------------------------------------
 
----
+## Autor
 
-## 🎯 Objetivo
-
-Fornecer ao administrador uma visualização clara da situação atual dos usuários SAP, destacando bloqueios e contas expiradas, além de permitir acesso rápido ao SU01D.
-
-
+**Murilo Valentim**
